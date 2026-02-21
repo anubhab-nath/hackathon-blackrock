@@ -12,7 +12,7 @@ public class TransactionService {
 
 
     public TransactionDto extractionRemnant(ExpenseDto expenseDto) {
-        double amount = Double.parseDouble(expenseDto.getAmount());
+        double amount = expenseDto.getAmount();
         double mod = amount % 100;
         logger.info(String.valueOf(mod));
         double remnant = 100 - mod;
@@ -21,8 +21,8 @@ public class TransactionService {
         return TransactionDto.builder()
                 .date(expenseDto.getDate())
                 .amount(expenseDto.getAmount())
-                .ceiling(String.valueOf(ceiling))
-                .remanent(String.valueOf(remnant))
+                .ceiling(ceiling)
+                .remanent(remnant)
                 .build();
     }
 }

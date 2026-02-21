@@ -9,7 +9,7 @@ import lombok.Setter;
 @Builder
 public class TransactionDto {
     private String date;
-    private String amount;
-    private String ceiling;
-    private String remanent;
+    private double amount;
+    private double ceiling;
+    private double remanent;
 }

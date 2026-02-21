@@ -7,5 +7,5 @@ import lombok.Setter;
 @Setter
 public class ExpenseDto {
     private String date;
-    private String amount;
+    private double amount;
 }
