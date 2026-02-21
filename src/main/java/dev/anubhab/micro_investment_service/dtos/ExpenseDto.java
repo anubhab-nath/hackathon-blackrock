@@ -5,7 +5,7 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class ExpenseObj {
+public class ExpenseDto {
     private String date;
-    private Double amount;
+    private String amount;
 }
