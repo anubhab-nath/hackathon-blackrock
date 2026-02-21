@@ -2,8 +2,10 @@ package dev.anubhab.micro_investment_service.services;
 
 import dev.anubhab.micro_investment_service.dtos.ExpenseDto;
 import dev.anubhab.micro_investment_service.dtos.TransactionDto;
+import dev.anubhab.micro_investment_service.dtos.TransactionValidationResponse;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.logging.Logger;
 
 @Service
@@ -24,5 +26,15 @@ public class TransactionService {
                 .ceiling(ceiling)
                 .remanent(remnant)
                 .build();
+    }
+
+    public TransactionValidationResponse validateTransaction(List<TransactionDto> transactionDtoList) {
+        for(TransactionDto transactionDto: transactionDtoList) {
+            if(!transactionDto.isValidAmount()) {
+                transactionDto.setMessage("Negative amounts are not allowed");
+            }
+        }
+
+        return new TransactionValidationResponse(transactionDtoList);
     }
 }

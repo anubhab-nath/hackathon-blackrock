@@ -4,6 +4,8 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import dev.anubhab.micro_investment_service.dtos.ExpenseDto;
 import dev.anubhab.micro_investment_service.dtos.TransactionDto;
+import dev.anubhab.micro_investment_service.dtos.TransactionValidationRequest;
+import dev.anubhab.micro_investment_service.dtos.TransactionValidationResponse;
 import dev.anubhab.micro_investment_service.services.TransactionService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -46,10 +48,10 @@ public class TransactionController {
     }
 
     @PostMapping("/transactions:validator")
-    public ResponseEntity<String> validateTransaction(@RequestBody JsonNode transactionData) {
+    public ResponseEntity<TransactionValidationResponse> validateTransaction(@RequestBody TransactionValidationRequest transactionValidationRequest) {
         // Placeholder for transaction validation logic
-        logger.info(transactionData.toString());
-        return ResponseEntity.ok("Transaction validated successfully");
+
+        return ResponseEntity.ok(transactionService.validateTransaction(transactionValidationRequest.getTransactions()));
     }
 
     @PostMapping("/transactions:filter")
