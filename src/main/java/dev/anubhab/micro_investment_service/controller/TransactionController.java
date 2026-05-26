@@ -6,7 +6,9 @@ import dev.anubhab.micro_investment_service.dtos.ExpenseDto;
 import dev.anubhab.micro_investment_service.dtos.TransactionDto;
 import dev.anubhab.micro_investment_service.dtos.TransactionValidationRequest;
 import dev.anubhab.micro_investment_service.dtos.TransactionValidationResponse;
+import dev.anubhab.micro_investment_service.logger.MicroserviceLogger;
 import dev.anubhab.micro_investment_service.services.TransactionService;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -22,7 +24,9 @@ import java.util.logging.Logger;
 @CrossOrigin
 @RequestMapping("/v1")
 public class TransactionController {
-    private final Logger logger = Logger.getLogger(this.getClass().getName());
+    @Value("${spring.application.name}")
+    private String SOURCE_NAME;
+    private final MicroserviceLogger logger = new MicroserviceLogger(this.getClass().getSimpleName(), SOURCE_NAME);
 
     private final ObjectMapper objectMapper = new ObjectMapper();
 
@@ -35,6 +39,7 @@ public class TransactionController {
     @PostMapping("/transactions:parse")
     public ResponseEntity<List<TransactionDto>> parseTransaction(@RequestBody JsonNode expenseData) {
         // Placeholder for transaction parsing logic
+        logger.msInfo("Parse logic");
         if(!expenseData.isArray()) {
             throw new IllegalArgumentException();
         }
