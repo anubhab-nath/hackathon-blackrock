@@ -19,21 +19,11 @@ import java.util.Arrays;
 public class MicroserviceLogger {
     private static final Logger logger = LoggerFactory.getLogger(MicroserviceLogger.class);
 
-
-    public void msInfo(String message) {
-//        String msMessage = String.format("[%s][%s] INFO: %s", sourceName, className, message);
-        logger.info(message);
-    }
-
     @Pointcut("execution(* dev.anubhab.*.controller.*.*(..))")
-    public void controllerMethods() {
-        System.out.println("Controller method pointcut initialized");
-    }
+    public void controllerMethods() {}
 
-    @Pointcut("execution(* dev.anubhab.*.service.*.*(..))")
-    public void serviceMethods() {
-        System.out.println("Service method pointcut initialized");
-    }
+    @Pointcut("execution(* dev.anubhab.*.services.*.*(..))")
+    public void serviceMethods() {}
 
     @Before("controllerMethods() || serviceMethods()")
     public void logMethodEntry(JoinPoint joinPoint) {
